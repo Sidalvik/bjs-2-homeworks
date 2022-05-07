@@ -2,17 +2,18 @@
 
 function solveEquation(a, b, c) {
 
-  //declaration
+  // declaration
   let arr;
-  let D;
+  let discriminant;
+
   // debugger;
   a = parseFloat(a);
   b = parseFloat(b);
   c = parseFloat(c);
 
-  //check arguments
+  // check arguments
   switch (true) {
-    case Number.isNaN(a):  
+    case Number.isNaN(a):
       console.log(`Параметр "а" содержит неправильное значение ${arguments[0]}`);
       return;
 
@@ -20,46 +21,43 @@ function solveEquation(a, b, c) {
       console.log(`Параметр "b" содержит неправильное значение ${arguments[1]}`);
       return;
 
-    case Number.isNaN(c):  
+    case Number.isNaN(c):
       console.log(`Параметр "c" содержит неправильное значение ${arguments[2]}`);
       return;
   }
   arr = [];
-  D = b**2 - 4*a*c;
+  discriminant = b**2 - 4 * a * c;
 
   switch (true) {
-    case (D < 0): 
-      arr = [];
+    case (discriminant > 0):
+      arr.push((-b + Math.sqrt(discriminant)) /(2 * a));
+      arr.push((-b - Math.sqrt(discriminant)) /(2 * a));
       break;
-    case (D === 0):
-      arr.push(-b/(2*a));
+    case (discriminant === 0):
+      arr.push(-b / (2 * a));
       break;
-    default:
-      arr.push((-b + Math.sqrt(D) )/(2*a));
-      arr.push((-b - Math.sqrt(D) )/(2*a));
-    break;
   }
 
   return arr; // array
 }
 
 function calculateTotalMortgage(percent, contribution, amount, date) {
-  //declaration
+  // declaration
   let totalAmount;
-  let S; //- credit
+  let S; // credit
   let P; // percent/month
-  let n; //months count
-  let payment;  //payment value
-  let start = new Date(); //start date (now)
+  let n; // months count
+  let payment;  // payment value
+  let start = new Date(); // start date (now)
 
-  //conversion arguments to number
+  // conversion arguments to number
   percent = parseFloat(percent);
   contribution = parseFloat(contribution);
   amount = parseFloat(amount);
-  
-  //check arguments
+
+  // check arguments
   switch (true) {
-    case Number.isNaN(percent):  
+    case Number.isNaN(percent):
       return (`Параметр "Процентная ставка" содержит неправильное значение "${arguments[0]}"`);
 
     case Number.isNaN(contribution):
@@ -72,20 +70,19 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
       return (`Параметр "Дата" содержит неправильное значение "${arguments[3]}"`);
   }
 
-  //credit value
+  // credit value
   S = amount - contribution;
-  
-  //percent/month/100%
-  P = percent / 1200; 
-  
-  //period in months
-  n = (date.getFullYear() - start.getFullYear())*12;
+
+  // percent/month/100%
+  P = percent / 1200;
+
+  // period in months
+  n = (date.getFullYear() - start.getFullYear()) * 12;
   n += date.getMonth() - start.getMonth();
 
-  //payment value in one month
-  payment = S * (P + (P / (Math.pow(1 + P,n) - 1)));
+  // payment value in one month
+  payment = S * (P + (P / (Math.pow(1 + P, n) - 1)));
 
   totalAmount = (payment * n).toFixed(2);
-  // totalAmount = Math.round(payment * n * 1e2) / 1e2;
   return +totalAmount;
 }
