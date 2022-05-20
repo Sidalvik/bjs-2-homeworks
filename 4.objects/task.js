@@ -20,21 +20,23 @@ Student.prototype.addMark = function (mark) {
 Student.prototype.addMarks = function (...arr) {
   if (this.marks === undefined) {
     this.marks = [];
-    }
-  
-  if (Array.isArray(arr)) {
-   return this.marks.push(...arr);
+  }
+
+  if (arr.length > 0) {
+    return this.marks.push(...arr);
   }
 }
 
 Student.prototype.getAverage = function () {
-  return this.marks.reduce((sum, item, idx, arr) => {
-    if (idx === arr.length - 1) {
-      return (sum + item) / arr.length;
-      } else {
-      return sum + item;
-      }
-  });
+  if (this.marks !== undefined) {
+    return this.marks.reduce((sum, item, idx, arr) => {
+      if (idx === arr.length - 1) {
+        return (sum + item) / arr.length;
+        } else {
+        return sum + item;
+        }
+    });
+  }
 }
 
 Student.prototype.exclude = function (reason) {
