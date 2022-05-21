@@ -12,6 +12,8 @@ Student.prototype.addMark = function (mark) {
   if (this.marks === undefined) {
     this.marks = [];
     }
+  
+  //исключить попадание в массив оценок значения undefined при вызове метода без параметров
   if (mark !== undefined) {
    return this.marks.push(mark);
   }
@@ -22,9 +24,7 @@ Student.prototype.addMarks = function (...arr) {
     this.marks = [];
   }
 
-  if (arr.length > 0) {
     return this.marks.push(...arr);
-  }
 }
 
 Student.prototype.getAverage = function () {
