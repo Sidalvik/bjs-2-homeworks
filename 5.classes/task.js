@@ -4,13 +4,13 @@
 class PrintEditionItem {
     #state;
 
-    constructor(name, releaseDate, pagesCount) {
+    constructor (name, releaseDate, pagesCount) {
         this.name = name;
         this.releaseDate = releaseDate;
         this.pagesCount = pagesCount;
         this.#state = 100;
         this.type = null;
-    } //constructor(name, releaseDate, pagesCount)
+    } //constructor (name, releaseDate, pagesCount)
 
 
     fix() {
@@ -43,7 +43,7 @@ class PrintEditionItem {
 
 
 class Magazine extends PrintEditionItem {
-    constructor(name, releaseDate, pagesCount) {
+    constructor (name, releaseDate, pagesCount) {
         super(name, releaseDate, pagesCount);
         this.type = 'magazine';
     }   //constructor(name, releaseDate, pagesCount)
@@ -91,14 +91,14 @@ class Library {
         this.books = [];
     }   //constructor (name)
 
-    addBook (book) {
+    addBook(book) {
         if (book.state > 30) {
             this.books.push(book)
         }
     }   //addBook(book)
 
 
-    findBookBy (type, value) {
+    findBookBy(type, value) {
         // find book[type] === value
         let result = this.books.find((item) => item[type] === value);
 
@@ -107,7 +107,7 @@ class Library {
     }   //findBookBy(type, value)
 
 
-    giveBookByName (bookName) {
+    giveBookByName(bookName) {
         let result = this.books.findIndex((item) => item.name === bookName);
 
         return (result === -1) ? null : this.books.splice(result, 1)[0];
@@ -124,13 +124,13 @@ class Student {
         this.journal = {};
     }   //constructor (name, gender, age)
 
-    addSubject (subject) {
+    addSubject(subject) {
         if (!(subject in this.journal)) {
             this.journal[subject] = [];
         }
     }   //addSubject (subject)
 
-    addMark (mark, subject) {
+    addMark(mark, subject) {
         this.addSubject(subject);
 
         if (mark >= 1 && mark <= 5) {
@@ -138,10 +138,10 @@ class Student {
         } else {
             console.log('Ошибка, оценка должна быть числом от 1 до 5');
         }
-    }   //addMark (mark, subject)
+    }   //addMark(mark, subject)
 
 
-    getAverageBySubject (subject) {
+    getAverageBySubject(subject) {
         if (!(subject in this.journal)) {
             console.log(`Несуществующий предмет "${subject}"`);
             return ;
@@ -157,7 +157,7 @@ class Student {
     }   //getAverageBySubject(subject)
 
 
-    getAverage () {
+    getAverage() {
         let count = Object.entries(this.journal).reduce((sum, item) => sum + item[1].length, 0);
         let  sum = Object.entries(this.journal).reduce((sum, item) => sum + item[1].reduce((sum, item) => sum + item, 0), 0);
 
@@ -165,8 +165,8 @@ class Student {
     }   //getAverage()
 
 
-    exclude (reason) {
+    exclude(reason) {
         delete this.journal;
         this.excluded = reason;
-    }   //exclude ()
+    }   //exclude()
 } //class Student
