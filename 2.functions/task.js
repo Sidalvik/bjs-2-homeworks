@@ -1,3 +1,5 @@
+'use strict'
+
 // Задание 1
 function getArrayParams(arr) {
   let min, max, sum, avg;
