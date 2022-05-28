@@ -2,12 +2,11 @@
 
 // Task 1
 function parseCount(count) {
-    count = Number.parseInt(count);
-    if (Number.isNaN(count)) {
+    let result = Number.parseInt(count);
+    if (Number.isNaN(result)) {
         throw new Error('Невалидное значение');
-    } else {
-        return count;
     }
+    return result;
 }
 
 
