@@ -106,6 +106,11 @@ function testCase() {
     let time2 = (new Date(Date.now() + 60000 * 2)).toLocaleTimeString('nu', {hour: "2-digit", minute: "2-digit"});
 
     clocks.addClock(time0, () => console.log('Будильник 0'), 0);
+    try {
+        clocks.addClock(time0, () => console.log('Будильник 0'));   //  error undefined id 
+    } catch (error) {
+        console.error(error);
+    }
     clocks.addClock(time1, () => console.log('Будильник 1'), 0);    // error. duble id
 
     // звонок с самоудолением
