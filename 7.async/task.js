@@ -8,8 +8,8 @@ class AlarmClock {
     }   // constructor() 
 
 
-    addClock(time, collback, id) {
-        if (id === undefined) {
+    addClock(time, callback, id) {
+        if (!id) {
             throw new Error('id не передан.');
         }
 
@@ -21,7 +21,7 @@ class AlarmClock {
             let result = {
                 id,
                 time,
-                collback,
+                callback,
             };
             this.alarmCollection.push(result);
         }
@@ -53,12 +53,12 @@ class AlarmClock {
 
     start() {
         const checkClock = (clock) => {
-             if (clock !== undefined && clock.time === (() => this.getCurrentFormattedTime())()) {
-                clock.collback();
+             if (clock !== undefined && clock.time === this.getCurrentFormattedTime()) {
+                clock.callback();
              }
         }   //  function checkClock(clock)
         
-        if (this.timerId === null) {
+        if (!this.timerId) {
             this.timerId = setInterval(() => {
                 this.alarmCollection.forEach((element) => checkClock(element));
              }, 10000);
@@ -67,7 +67,7 @@ class AlarmClock {
 
 
     stop() {
-        if (this.timerId !== null) {
+        if (this.timerId) {
             clearInterval(this.timerId);
             this.timerId = null;
         }
@@ -105,31 +105,30 @@ function testCase() {
     // +2 минуты
     let time2 = (new Date(Date.now() + 60000 * 2)).toLocaleTimeString('nu', {hour: "2-digit", minute: "2-digit"});
 
-    clocks.addClock(time0, () => console.log('Будильник 0'), 0);
+    clocks.addClock(time0, () => console.log('Будильник 1'), 1);
     try {
-        clocks.addClock(time0, () => console.log('Будильник 0'));   //  error undefined id 
+        clocks.addClock(time0, () => console.log('Будильник 1'));   //  error undefined id 
     } catch (error) {
         console.error(error);
     }
-    clocks.addClock(time1, () => console.log('Будильник 1'), 0);    // error. duble id
+    clocks.addClock(time1, () => console.log('Будильник 1'), 1);    // error. double id
 
     // звонок с самоудолением
     clocks.addClock(time1, () => {
-        console.log('Будильник 1 с самоуничтожением');
-        clocks.removeClock(1);
-    }, 1); 
+        console.log('Будильник 2 с самоуничтожением');
+        clocks.removeClock(2);
+    }, 2); 
 
 //     вывода текста на консоль, а так же остановки всех звонков, очистки всех звонков 
 // и выводом всех звонков. Так, чтобы после запуска функция вывода *выполнилась один раз, 
 // потом остановился интервал, все звонки очистились, и ничего не вывелось*.
     clocks.addClock(time2, () => {
-        console.log('Будильник 2 \nС остановкой, очисткой и выводом');
+        console.log('Будильник 3 \nС остановкой, очисткой и выводом');
         clocks.printAlarms();
         clocks.stop();
         clocks.clearAlarms();
         clocks.printAlarms();
-    }, 2); 
-
+    }, 3); 
 
     clocks.printAlarms();
 
